@@ -16,7 +16,7 @@ public class FileTest {
 		System.out.println(file.isFile());
 		System.out.println(file.canExecute());
 		System.out.println(file.getName()); // 파일이나 폴더의 이름을 넘김
-		System.out.println(file.getParent());
+		System.out.println(file.getParent()); // 부모 경로
 		System.out.println(file.length()); // 파일의 크기
 
 		File f = new File("C:\\");
@@ -31,6 +31,8 @@ public class FileTest {
 
 		file = new File("C:\\test\\test2");
 		file.delete();
+		
+//		file.createNewFile(); // 빈 파일을 생성
 
 		for (int i = 0; i < ar.length; i++) {
 			System.out.println(ar[i]);
