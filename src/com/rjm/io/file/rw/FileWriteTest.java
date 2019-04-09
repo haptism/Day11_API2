@@ -12,9 +12,9 @@ public class FileWriteTest {
 		FileWriter fw = null;
 
 		try {
-			fw = new FileWriter(file, true); // exception이 발생하기 때문에
-//			fw = new FileWriter(file, false);
-			fw.write("Fourth write\r\n");
+//			fw = new FileWriter(file, true); // exception이 발생하기 때문에
+			fw = new FileWriter(file, false);
+			fw.write("\r\nFourth write");
 			fw.flush(); // 버퍼를 강제로 비우기
 
 		} catch (IOException e) {
