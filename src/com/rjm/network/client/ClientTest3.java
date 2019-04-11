@@ -8,13 +8,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Random;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class ClientTest3 {
 
 	public static void main(String[] args) {
-
 		Scanner sc = new Scanner(System.in);
 		Socket sk = null;
 		OutputStream os = null;
@@ -25,24 +24,23 @@ public class ClientTest3 {
 		BufferedReader br = null;
 
 		try {
-			sk = new Socket("211.238.142.21", 8180);
-			os = sk.getOutputStream();// byte
-			ow = new OutputStreamWriter(os);// char
+			sk = new Socket("127.0.0.1", 8282);
+			System.out.println("1.Lunch \t 2.Dinner \t 3.Random");
+			int select = sc.nextInt();
+			os = sk.getOutputStream();
+			ow = new OutputStreamWriter(os);
 			bw = new BufferedWriter(ow);
-			System.out.println("명단 입력");
-			String names = sc.next();
-			bw.write(names);
-			bw.write("\r\n");
+			bw.write(select + "\r\n");
 			bw.flush();
 
-			is = sk.getInputStream();// byte
-			ir = new InputStreamReader(is);// char
+			is = sk.getInputStream();
+			ir = new InputStreamReader(is);
 			br = new BufferedReader(ir);
-			names = br.readLine();
-
-			System.out.println("당첨자 : " + names);
+			String result = br.readLine();
+			System.out.println(result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
 				br.close();
@@ -52,10 +50,15 @@ public class ClientTest3 {
 				ow.close();
 				os.close();
 				sk.close();
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+
+		System.out.println("end");
+
 	}
+
 }

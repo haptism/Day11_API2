@@ -2,13 +2,13 @@ package com.rjm.network.server;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Random;
 
 public class ServerTest3 {
 
@@ -22,31 +22,33 @@ public class ServerTest3 {
 		InputStreamReader ir = null;
 		BufferedReader br = null;
 		String names = null;
+		ServerMenu sm = new ServerMenu();
 
 		try {
-			ss = new ServerSocket(8180);
+			sm.init();
+			ss = new ServerSocket(8282);
 			sk = ss.accept();
 			is = sk.getInputStream();
 			ir = new InputStreamReader(is);
 			br = new BufferedReader(ir);
-			names = br.readLine();
-			
-			// 작업
-			String[] ar = names.split(",");
-			Random r = new Random();
-			int index = r.nextInt(ar.length);
-			names = ar[index];
+			String check = br.readLine();
+			if (check.equals("1")) {
+				check = sm.getLunch();
+			} else if (check.equals("2")) {
+				check = sm.getDinner();
+			} else {
+				check = sm.getRandom();
+			}
 
 			os = sk.getOutputStream();
 			ow = new OutputStreamWriter(os);
 			bw = new BufferedWriter(ow);
-			bw.write(names);
-			bw.write("\r\n");
+			bw.write(check + "\r\n");
 			bw.flush();
 
 		} catch (Exception e) {
-			// TODO: handle exception
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
 				br.close();
@@ -57,9 +59,10 @@ public class ServerTest3 {
 				os.close();
 				sk.close();
 				ss.close();
-				
-			} catch (Exception e) {
-				// TODO: handle exception
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

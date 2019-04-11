@@ -2,14 +2,14 @@ package com.rjm.io.file.rw;
 
 public class Hungry {
 
-	private String time;
+	private int time;
 	private String food;
 
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 
